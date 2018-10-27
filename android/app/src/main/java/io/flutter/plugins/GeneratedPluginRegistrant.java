@@ -1,8 +1,6 @@
 package io.flutter.plugins;
 
 import io.flutter.plugin.common.PluginRegistry;
-import io.flutter.plugins.firebaseauth.FirebaseAuthPlugin;
-import io.flutter.plugins.googlesignin.GoogleSignInPlugin;
 
 /**
  * Generated file. Do not edit.
@@ -12,8 +10,6 @@ public final class GeneratedPluginRegistrant {
     if (alreadyRegisteredWith(registry)) {
       return;
     }
-    FirebaseAuthPlugin.registerWith(registry.registrarFor("io.flutter.plugins.firebaseauth.FirebaseAuthPlugin"));
-    GoogleSignInPlugin.registerWith(registry.registrarFor("io.flutter.plugins.googlesignin.GoogleSignInPlugin"));
   }
 
   private static boolean alreadyRegisteredWith(PluginRegistry registry) {

@@ -1,6 +1,6 @@
 # ff_chat
 
-Chat application
+chat app
 
 ## Getting Started
 
