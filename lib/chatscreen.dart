@@ -1,4 +1,5 @@
 import 'package:ff_chat/chatmessage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -59,13 +60,22 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               ),
             ),
             new Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: new IconButton(
-                icon: new Icon(Icons.send),
-                onPressed: _isComposing
-                    ? () => _handleSubmit(_chatController.text) //modified
-                    : null,
-              ),
+              margin: new EdgeInsets.symmetric(horizontal: 4.0),
+              child: Theme.of(context).platform == TargetPlatform.iOS
+                  ? //modified
+                  new CupertinoButton(
+                      //new
+                      child: new Text("Send"), //new
+                      onPressed: _isComposing //new
+                          ? () => _handleSubmit(_chatController.text) //new
+                          : null,
+                    )
+                  : new IconButton(
+                      icon: new Icon(Icons.send),
+                      onPressed: _isComposing
+                          ? () => _handleSubmit(_chatController.text) //modified
+                          : null,
+                    ),
             )
           ],
         ),
@@ -76,51 +86,43 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(title: new Text("FFChat")),
-      body: new Column(
-        //modified
-        children: <Widget>[
-          //new
-          new Flexible(
-            //new
-            child: new ListView.builder(
+      appBar: new AppBar(
+        title: new Text("FFChat"),
+        elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
+      ),
+      body: new Container(
+          child: new Column(
+            //modified
+            children: <Widget>[
               //new
-              padding: new EdgeInsets.all(8.0), //new
-              reverse: true, //new
-              itemBuilder: (_, int index) => _messages[index], //new
-              itemCount: _messages.length, //new
-            ), //new
-          ), //new
-          new Divider(height: 1.0), //new
-          new Container(
-            //new
-            decoration:
-                new BoxDecoration(color: Theme.of(context).cardColor), //new
-            child: _chatEnvironment(), //modified
-          ), //new
-        ], //new
-      ), //new
+              new Flexible(
+                //new
+                child: new ListView.builder(
+                  //new
+                  padding: new EdgeInsets.all(8.0), //new
+                  reverse: true, //new
+                  itemBuilder: (_, int index) => _messages[index], //new
+                  itemCount: _messages.length, //new
+                ), //new
+              ), //new
+              new Divider(height: 1.0), //new
+              new Container(
+                //new
+                decoration:
+                    new BoxDecoration(color: Theme.of(context).cardColor), //new
+                child: _chatEnvironment(), //modified
+              ), //new
+            ], //new
+          ),
+          decoration: Theme.of(context).platform == TargetPlatform.iOS //new
+              ? new BoxDecoration(
+                  //new
+                  border: new Border(
+                    //new
+                    top: new BorderSide(color: Colors.grey[200]), //new
+                  ), //new
+                ) //new
+              : null),
     );
-//    return new Column(
-//      children: <Widget>[
-//        new Flexible(
-//          child: ListView.builder(
-//            padding: new EdgeInsets.all(8.0),
-//            reverse: true,
-//            itemBuilder: (_, int index) => _messages[index],
-//            itemCount: _messages.length,
-//          ),
-//        ),
-//        new Divider(
-//          height: 1.0,
-//        ),
-//        new Container(
-//          decoration: new BoxDecoration(
-//            color: Theme.of(context).cardColor,
-//          ),
-//          child: _chatEnvironment(),
-//        )
-//      ],
-//    );
   }
 }
